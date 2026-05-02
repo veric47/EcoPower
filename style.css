@@ -6,6 +6,7 @@
     --text-color: #1a1a1a;
     --section-color: #f5f5f5;
 
+    /* Brand Colors */
     --waste: #8B5E3C;
     --recycle: #2E8B57;
     --energy: #FFC72C;
@@ -13,7 +14,7 @@
     --button-text: #ffffff;
 }
 
-/* Dark mode auto */
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-color: #121212;
@@ -21,25 +22,28 @@
         --section-color: #1e1e1e;
     }
 }
+h1, h2, h3 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
 
 /* =========================
-   RESET
+   GLOBAL STYLES
 ========================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-h1, h2, h3, p {
-    margin: 0;
-}
-
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background: var(--bg-color);
+    background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.6;
+}
+
+/* Scroll effect hook */
+body.scrolled .navbar {
+    padding: 10px 40px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 /* =========================
@@ -54,19 +58,30 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
 
-.nav-left,
-.nav-right {
+/* LEFT */
+.nav-left {
     display: flex;
     align-items: center;
 }
 
+/* CENTER NAV */
 .nav-center {
     display: flex;
-    gap: 25px;
+    align-items: center;
+    gap: 30px;
+}
+
+/* RIGHT */
+.nav-right {
+    display: flex;
     align-items: center;
 }
 
@@ -77,50 +92,66 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--recycle);
+    letter-spacing: 1px;
+    transition: 0.3s ease;
 }
 
 .logo:hover {
     color: var(--energy);
+    transform: scale(1.05);
 }
 
 /* =========================
    NAV LINKS
 ========================= */
 .nav-link {
+    position: relative;
     text-decoration: none;
     color: var(--text-color);
     font-weight: 500;
-    position: relative;
-    padding: 6px 4px;
-    transition: 0.3s ease;
+    padding: 8px 4px;
     opacity: 0.85;
+    transition: all 0.3s ease;
 }
 
+/* Hover */
 .nav-link:hover {
-    color: var(--recycle);
     opacity: 1;
-    transform: translateY(-2px);
+    color: var(--recycle);
+    transform: translateY(-3px);
 }
 
+/* underline animation */
 .nav-link::after {
     content: "";
     position: absolute;
-    left: 0;
+    left: 50%;
     bottom: 0;
-    height: 2px;
     width: 0%;
-    background: linear-gradient(to right, var(--waste), var(--recycle), var(--energy));
-    transition: 0.3s ease;
+    height: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to right,
+        var(--waste),
+        var(--recycle),
+        var(--energy)
+    );
+    transition: width 0.35s ease;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
+.nav-link:hover::after {
     width: 100%;
 }
 
+/* Active state */
 .nav-link.active {
     color: var(--recycle);
     font-weight: 600;
+    opacity: 1;
+}
+
+.nav-link.active::after {
+    width: 100%;
 }
 
 /* =========================
@@ -133,32 +164,115 @@ body {
     border-radius: 25px;
     text-decoration: none;
     font-weight: bold;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .cta-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+/* =========================
+   PROCESS SECTION HEADER
+========================= */
+.process {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.process .section-title {
+    margin-bottom: 40px;
+}
+
+.process .section-title h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.process .section-title p {
+    opacity: 0.7;
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.6;
 }
 
 /* =========================
-   HERO (HOME)
+   STEPS LAYOUT
+========================= */
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* base card */
+.step {
+    width: 270px;
+    padding: 25px;
+    border-radius: 12px;
+    color: #fff;
+    text-align: left;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+/* hover effect */
+.step:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   STEP COLORS (your flow logic)
+========================= */
+.waste-step {
+    background: var(--waste);
+}
+
+.recycle-step {
+    background: var(--recycle);
+}
+
+.energy-step {
+    background: var(--energy);
+}
+/* =========================
+   HERO
 ========================= */
 .hero {
     text-align: center;
     padding: 120px 20px 90px;
-    background: linear-gradient(to bottom, var(--section-color), var(--bg-color));
+    background: linear-gradient(
+        to bottom,
+        var(--section-color),
+        var(--bg-color)
+    );
+}
+
+.hero-content {
+    max-width: 750px;
+    margin: auto;
 }
 
 .hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 2.6rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
 }
 
 .hero p {
+    font-size: 1.1rem;
     opacity: 0.8;
-    max-width: 600px;
-    margin: auto;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.hero-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 /* =========================
@@ -170,141 +284,124 @@ body {
     margin: 10px;
     background: var(--recycle);
     color: var(--button-text);
-    border-radius: 8px;
     text-decoration: none;
+    border-radius: 8px;
     font-weight: 600;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
     transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
 
+/* secondary button */
 .btn.secondary {
     background: var(--waste);
 }
 
+.btn.secondary:hover {
+    box-shadow: 0 8px 18px rgba(139, 94, 60, 0.25);
+}
 /* =========================
-   SECTIONS GENERAL
+   SERVICES SECTION
 ========================= */
-.section-title {
+.services {
+    padding: 80px 20px;
     text-align: center;
+}
+
+.section-title {
     margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 .section-title p {
     opacity: 0.7;
-    max-width: 650px;
+    max-width: 600px;
     margin: auto;
+    line-height: 1.6;
 }
 
-/* =========================
-   SERVICES CARDS
-========================= */
-.services,
-.services-page {
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.service-container,
-.service-grid {
+/* layout */
+.service-container {
     display: flex;
-    gap: 25px;
     justify-content: center;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
+/* cards */
 .service-card {
     width: 260px;
     padding: 25px;
-    background: var(--section-color);
     border-radius: 12px;
+    background: var(--section-color);
+    transition: all 0.3s ease;
     border-left: 5px solid transparent;
     text-align: left;
-    transition: 0.3s ease;
+    line-height: 1.6;
 }
 
+/* hover */
 .service-card:hover {
     transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-.service-card.waste { border-left-color: var(--waste); }
-.service-card.recycle { border-left-color: var(--recycle); }
-.service-card.energy { border-left-color: var(--energy); }
-
-/* =========================
-   PROCESS
-========================= */
-.process {
-    padding: 80px 20px;
-    text-align: center;
+/* color identity */
+.service-card.waste {
+    border-left-color: var(--waste);
 }
 
-.steps {
-    display: flex;
-    gap: 25px;
-    justify-content: center;
-    flex-wrap: wrap;
+.service-card.recycle {
+    border-left-color: var(--recycle);
 }
 
-.step {
-    width: 270px;
-    padding: 25px;
-    border-radius: 12px;
-    color: #fff;
-    transition: 0.3s ease;
+.service-card.energy {
+    border-left-color: var(--energy);
 }
-
-.step:hover {
-    transform: translateY(-6px);
-}
-
-.waste-step { background: var(--waste); }
-.recycle-step { background: var(--recycle); }
-.energy-step { background: var(--energy); color: #000; }
-
-/* =========================
-   ABOUT
-========================= */
-.about-section {
-    padding: 70px 20px;
-    display: flex;
-    gap: 25px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.about-box {
-    width: 280px;
-    padding: 25px;
-    background: var(--section-color);
-    border-radius: 12px;
-    border-top: 4px solid var(--recycle);
-}
-
 /* =========================
    CONTACT
 ========================= */
 .contact {
     padding: 70px 20px;
+    background: var(--section-color);
     text-align: center;
 }
 
+.contact h2 {
+    margin-bottom: 10px;
+}
+
+.contact p {
+    opacity: 0.7;
+    margin-bottom: 25px;
+}
+
 form {
-    max-width: 450px;
-    margin: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    max-width: 450px;
+    margin: auto;
 }
 
 input, textarea {
     padding: 12px;
-    border-radius: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
 }
 
+input:focus, textarea:focus {
+    border-color: var(--recycle);
+}
 /* =========================
    FOOTER
 ========================= */
@@ -318,15 +415,371 @@ footer {
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
     .nav-center {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 15px;
     }
 
-    .service-container,
-    .service-grid,
+    .service-container {
+        flex-direction: column;
+    }
+
     .steps {
         flex-direction: column;
-        align-items: center;
     }
+}
+/* =========================
+   ABOUT HERO
+========================= */
+.about-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        var(--section-color),
+        var(--bg-color)
+    );
+}
+
+.about-content {
+    max-width: 750px;
+    margin: auto;
+}
+
+.about-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   ABOUT SECTION BOXES
+========================= */
+.about-section {
+    padding: 70px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.about-box {
+    width: 280px;
+    padding: 25px;
+    border-radius: 12px;
+    background: var(--section-color);
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--recycle);
+}
+
+.about-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.about-box h3 {
+    margin-bottom: 10px;
+    color: var(--recycle);
+}
+
+.about-box p {
+    line-height: 1.6;
+    opacity: 0.8;
+}
+/* =========================
+   SERVICES HERO
+========================= */
+.services-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        var(--section-color),
+        var(--bg-color)
+    );
+}
+
+.services-content {
+    max-width: 750px;
+    margin: auto;
+}
+
+.services-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+}
+
+.services-content p {
+    line-height: 1.7;
+    opacity: 0.85;
+}
+
+/* =========================
+   SERVICES GRID
+========================= */
+.services-page {
+    padding: 70px 20px;
+}
+
+.service-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* reuse your existing card system but upgraded */
+.service-card {
+    width: 280px;
+    padding: 25px;
+    border-radius: 12px;
+    background: var(--section-color);
+    transition: all 0.3s ease;
+    line-height: 1.6;
+    border-left: 5px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.service-card.waste {
+    border-left-color: var(--waste);
+}
+
+.service-card.recycle {
+    border-left-color: var(--recycle);
+}
+
+.service-card.energy {
+    border-left-color: var(--energy);
+}
+
+/* =========================
+   EXTRA SECTION
+========================= */
+.services-extra {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.extra-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.extra-box {
+    width: 260px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--section-color);
+    transition: all 0.3s ease;
+}
+
+.extra-box:hover {
+    transform: translateY(-5px);
+}
+
+.extra-box h3 {
+    color: var(--recycle);
+    margin-bottom: 10px;
+}
+
+.extra-box p {
+    opacity: 0.8;
+    line-height: 1.5;
+}
+/* =========================
+   PROCESS HERO
+========================= */
+.process-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        var(--section-color),
+        var(--bg-color)
+    );
+}
+
+.process-content {
+    max-width: 750px;
+    margin: auto;
+}
+
+.process-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+}
+
+.process-content p {
+    opacity: 0.85;
+    line-height: 1.7;
+}
+
+/* =========================
+   PROCESS IMPACT SECTION
+========================= */
+.process-impact {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.impact-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.impact-box {
+    width: 260px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--section-color);
+    transition: all 0.3s ease;
+}
+
+.impact-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.impact-box h3 {
+    color: var(--recycle);
+    margin-bottom: 10px;
+}
+
+.impact-box p {
+    opacity: 0.8;
+    line-height: 1.5;
+}
+/* =========================
+   CONTACT HERO
+========================= */
+.contact-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        var(--section-color),
+        var(--bg-color)
+    );
+}
+
+.contact-content {
+    max-width: 750px;
+    margin: auto;
+}
+
+.contact-content h2 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+}
+
+.contact-content p {
+    opacity: 0.85;
+    line-height: 1.7;
+}
+
+/* =========================
+   CONTACT FORM SECTION
+========================= */
+.contact {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.contact h2 {
+    margin-bottom: 10px;
+}
+
+.contact p {
+    opacity: 0.7;
+    margin-bottom: 25px;
+}
+
+/* form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+    margin: auto;
+}
+
+input, textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+/* focus effect */
+input:focus, textarea:focus {
+    border-color: var(--recycle);
+}
+
+/* submit button reuse */
+form .btn {
+    margin-top: 10px;
+}
+
+/* =========================
+   CONTACT INFO SECTION
+========================= */
+.contact-info {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.info-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.info-box {
+    width: 250px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--section-color);
+    transition: all 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.info-box h3 {
+    color: var(--recycle);
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    opacity: 0.8;
 }
