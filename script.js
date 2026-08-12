@@ -1,41 +1,53 @@
 // =========================
+// STICKY NAVBAR SCROLL EFFECT
+// (drives the body.scrolled .navbar rule in style.css)
+// =========================
+(function () {
+    const onScroll = () => {
+        document.body.classList.toggle("scrolled", window.scrollY > 10);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+})();
+
+// =========================
 // CONTACT FORM FUNCTIONALITY
 // =========================
-
-// Wait until page loads
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.querySelector("form");
+    const form = document.querySelector("#contactForm");
+    if (!form) return; // only runs on contact.html
 
-    if (!form) return;
+    const status = form.querySelector("#formStatus");
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const showStatus = (message, type) => {
+        status.textContent = message;
+        status.classList.remove("success", "error");
+        status.classList.add(type);
+    };
 
     form.addEventListener("submit", function (e) {
-        e.preventDefault(); // stop page reload
+        e.preventDefault(); // stop page reload (no backend yet)
 
-        // Get input values
-        const name = form.querySelector('input[type="text"]').value.trim();
-        const email = form.querySelector('input[type="email"]').value.trim();
-        const subject = form.querySelectorAll('input[type="text"]')[1].value.trim();
-        const message = form.querySelector("textarea").value.trim();
+        const name = form.fullName.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
 
-        // Simple validation
         if (!name || !email || !message) {
-            alert("Please fill in all required fields.");
+            showStatus("Please fill in all required fields.", "error");
             return;
         }
-
-        // Email format check
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
+            showStatus("Please enter a valid email address.", "error");
             return;
         }
 
-        // Success message (replace alert with better UI later if you want)
-        alert("Message sent successfully! We will get back to you soon.");
-
-        // Reset form
+        // No backend is connected yet — this confirms the form works
+        // and gives the visitor feedback. Wire this up to a real
+        // endpoint (Formspree, EmailJS, or a server route) before launch.
+        showStatus("Message sent successfully! We'll get back to you soon.", "success");
         form.reset();
     });
 

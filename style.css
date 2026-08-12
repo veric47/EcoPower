@@ -542,7 +542,7 @@ footer {
     flex-wrap: wrap;
 }
 
-/* reuse your existing card system but upgraded */
+/* reuse existing card system but upgraded */
 .service-card {
     width: 280px;
     padding: 25px;
@@ -744,6 +744,20 @@ input:focus, textarea:focus {
 /* submit button reuse */
 form .btn {
     margin-top: 10px;
+}
+
+/* form status message */
+.form-status {
+    min-height: 1.2em;
+    font-weight: 600;
+}
+
+.form-status.success {
+    color: var(--recycle);
+}
+
+.form-status.error {
+    color: #c0392b;
 }
 
 /* =========================

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with EcoPower to request a quote or partner on waste-to-energy solutions.">
     <title>EcoPower - Contact</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -21,6 +22,7 @@
         <a href="about.html" class="nav-link">About</a>
         <a href="services.html" class="nav-link">Services</a>
         <a href="process.html" class="nav-link">How It Works</a>
+    </nav>
 
     <div class="nav-right">
         <a href="contact.html" class="cta-btn">Get a Quote</a>
@@ -36,9 +38,9 @@
         <h2>Get In Touch</h2>
 
         <p>
-            Have questions about our waste-to-energy solutions?  
-            Want to partner with EcoPower or request a service?  
-            We’re here to help you build a cleaner, more sustainable future.
+            Have questions about our waste-to-energy solutions?
+            Want to partner with EcoPower or request a service?
+            We're here to help you build a cleaner, more sustainable future.
         </p>
 
     </div>
@@ -54,17 +56,19 @@
         Fill out the form below and our team will get back to you as soon as possible.
     </p>
 
-    <form>
+    <form id="contactForm" novalidate>
 
-        <input type="text" placeholder="Your Full Name" required>
+        <input type="text" name="fullName" placeholder="Your Full Name" required>
 
-        <input type="email" placeholder="Your Email Address" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
 
-        <input type="text" placeholder="Subject">
+        <input type="text" name="subject" placeholder="Subject">
 
-        <textarea rows="5" placeholder="Your Message"></textarea>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 
         <button type="submit" class="btn">Send Message</button>
+
+        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
 
     </form>
 
@@ -82,12 +86,12 @@
 
         <div class="info-box">
             <h3>Phone</h3>
-            <p>+2348094593584</p>
+            <p>+234 809 459 3584</p>
         </div>
 
         <div class="info-box">
             <h3>Location</h3>
-            <p>The Moon</p>
+            <p>Abuja, Nigeria</p>
         </div>
 
     </div>
@@ -98,6 +102,7 @@
 <footer>
     <p>© 2026 EcoPower Solutions. All rights reserved.</p>
 </footer>
+
 <script src="script.js"></script>
 </body>
 </html>
